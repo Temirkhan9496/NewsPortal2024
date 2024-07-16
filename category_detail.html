@@ -1,0 +1,16 @@
+ <h1>{{ category.name }}</h1>
+   <ul>
+       {% for post in posts %}
+           <li>
+               <a href="#">{{ post.title }}</a>
+               <p>{{ post.content|truncatewords:10 }}</p>
+           </li>
+       {% endfor %}
+   </ul>
+   {% if user.is_authenticated %}
+       {% if subscribed %}
+           <p>You are subscribed to this category.</p>
+       {% else %}
+           <a href="{% url 'subscribe_to_category' category.pk %}">Subscribe</a>
+       {% endif %}
+   {% endif %}

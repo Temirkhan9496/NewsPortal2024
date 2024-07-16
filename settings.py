@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -264,17 +265,6 @@ LOGGING = {
         },
     },
 }
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-   CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
-   CELERY_ACCEPT_CONTENT = ['json']
-   CELERY_TASK_SERIALIZER = 'json'
-   CELERY_BEAT_SCHEDULE = {
-       'send-weekly-digest': {
-           'task': 'news.tasks.send_weekly_digest',
-           'schedule': timedelta(weeks=1),
-       },
-   }
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.example.com'

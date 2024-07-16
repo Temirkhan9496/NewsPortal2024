@@ -39,11 +39,3 @@ def send_welcome_email(sender, instance, created, **kwargs):
             [instance.email],
             fail_silently=False,
         )
-  @receiver(post_save, sender=Post)
-   def send_post_notification(sender, instance, created, **kwargs):
-       if created:
-           categories = instance.categories.all()
-           subscribers = set(user.email for category in categories for user in category.subscribers.all())
-           subject = f'Новая статья: {instance.title}'
-           message = render_to_string('email/new_post_notification.html', {'post': instance})
-           send_mail(subject, message, 'your-email@example.com', subscribers)

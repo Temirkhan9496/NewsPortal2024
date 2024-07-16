@@ -9,3 +9,7 @@ app = Celery('NEWS_PORTAL')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 app.autodiscover_tasks()
+
+
+def shared_task():
+    return None

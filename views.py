@@ -1,22 +1,25 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category, Post
+from .models import Article, Category, Subscription
+from .forms import SubscriptionForm
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 
+def index(request):
+    articles = Article.objects.all()
+    return render(request, 'news/index.html', {'articles': articles})
 
-def category_detail(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    posts = Post.objects.filter(category=category)
-    subscribed = False
-    if request.user.is_authenticated:
-        subscribed = category.subscribers.filter(id=request.user.id).exists()
-    return render(request, 'news/category_detail.html',
-                  {'category': category, 'posts': posts, 'subscribed': subscribed})
-
+def article_detail(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    return render(request, 'news/article_detail.html', {'article': article})
 
 @login_required
-def subscribe_to_category(request, pk):
-    category = get_object_or_404(Category, pk=pk)
-    category.subscribers.add(request.user)
-    messages.success(request, f'You have subscribed to {category.name} category.')
-    return redirect('category_detail', pk=category.pk)
+def subscribe(request):
+    if request.method == 'POST':
+        form = SubscriptionForm(request.POST)
+        if form.is_valid():
+            subscription = form.save(commit=False)
+            subscription.user = request.user
+            subscription.save()
+            return redirect('index')
+    else:
+        form = SubscriptionForm()
+    return render(request, 'news/category_subscription.html', {'form': form})

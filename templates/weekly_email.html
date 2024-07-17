@@ -1,0 +1,7 @@
+# письма для еженедельной рассылки
+<h2>Weekly Digest</h2>
+<ul>
+    {% for article in articles %}
+        <li><a href="http://example.com/articles/{{ article.id }}/">{{ article.title }}</a></li>
+    {% endfor %}
+</ul>

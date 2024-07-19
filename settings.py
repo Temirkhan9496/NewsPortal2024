@@ -51,7 +51,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'ckeditor'
     'django_celery_beat'
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
 ]
+# Email Backend (e.g., use console for debugging)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# Site ID for Sites framework
+SITE_ID = 1
+
+
 
 SITE_ID = 1
 

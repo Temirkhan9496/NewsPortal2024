@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Article, Category, Subscription
-from .forms import SubscriptionForm
+from news.models import Article
+from news.forms import SubscriptionForm
 from django.contrib.auth.decorators import login_required
 
 def index(request):

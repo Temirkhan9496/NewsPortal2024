@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from .models import Article, Subscription
+from news.models import Article, Subscription
 from django.contrib.auth.models import User
 
 @receiver(post_save, sender=User)
